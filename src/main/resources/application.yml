@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: tz-htmx-spring
+server:
+  port: 8083
+

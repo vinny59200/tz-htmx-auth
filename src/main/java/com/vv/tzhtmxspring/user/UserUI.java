@@ -7,16 +7,17 @@ public final class UserUI {
     private UserUI() {
     }
 
-    public static  String getBegin() {
+    public static String getBegin() {
         return """
                 <html lang="en">
-                            
+                
                 <head>
                     <title>TZ App</title>
                     <link rel="stylesheet" href="/sakura.css" type="text/css">
                     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
                      <link rel="icon" type="image/x-icon" href="favicon.ico">
                 </head>
+                
                 <body hx-ext="debug">
                 <main>
                     <table>
@@ -36,41 +37,30 @@ public final class UserUI {
                             </th>
                         </tr>
                         </thead>
-                        """;
+                """;
     }
 
     public static String getRows( final List<EasyUser> list ) {
-        String loop = "";
+        StringBuilder loop = new StringBuilder();
         for ( EasyUser e : list ) {
-            loop = loop + "<tbody id='userTableBody'>";
-            String row = getRow( e );
-            loop = loop + row + " </tbody>";
+            loop.append( STR."<tbody id='userTableBody'>\{getRow( e )} </tbody>" );
         }
-        return loop;
+        return loop.toString();
     }
 
-    public static  String getRow( final EasyUser e ) {
-        return """
-                <tr id="user-XX-UUID">
+    public static String getRow( final EasyUser e ) {
+        return STR."""
+                <tr id="user-\{e.uuid.toString()}">
+                    <td>\{e.uuid.toString()}</td>
+                    <td>\{e.username}</td>
+                    <td>\{e.password}</td>
                     <td>
-                       XX-UUID
-                    </td>
-                    <td>
-                        XX-USERNAME
-                    </td>
-                    <td>
-                        XX-PASSWORD
-                    </td>
-                    <td>
-                        <button hx-get="XX-ACTION"
+                        <button hx-get="/save-user/modal/\{e.uuid.toString()}"
                                 hx-target="#modalContainer">
                             Edit
                         </button>
                     </td>
-                </tr>""".replace( "XX-UUID", e.uuid.toString() )
-                        .replace( "XX-USERNAME", e.username )
-                        .replace( "XX-PASSWORD", e.password )
-                        .replace( "XX-ACTION", "/save-user/modal/" + e.uuid.toString() );
+                </tr>""";
     }
 
     public static String getEnd() {
@@ -85,7 +75,7 @@ public final class UserUI {
                         </tr>
                         </tfoot>
                     </table>
-                            
+                
                 </main>
                 </body>
                 
@@ -97,29 +87,27 @@ public final class UserUI {
     }
 
     public static String getEditModal( final EasyUser user ) {
-        return """
+        return STR."""
                 <div style="width: 100dvw; height: 100dvh; position: fixed; top: 0;left: 0; background-color: rgba(128,128,128,0.69); display: flex; justify-content: center; align-items: center;">
                     <form style="background-color: whitesmoke; padding: 2rem;" >
                         <label>
                             UUID
-                            <input type="text" readonly name="uuid" value="XX-UUID">
+                            <input type="text" readonly name="uuid" value="\{user.uuid.toString()}">
                         </label>
                         <label>
                             Username
-                            <input type="text" name="username" value="XX-USERNAME">
+                            <input type="text" name="username" value="\{user.username}">
                         </label>
                         <label>
                             Password
-                            <input type="text" name="password" value="XX-PASSWORD">
+                            <input type="text" name="password" value="\{user.password}">
                         </label>
                         <button type="submit"  hx-post="/save-user" >
                             Save User
                         </button>
                     </form>
                 </div>
-                """.replace( "XX-UUID", user.uuid.toString() )
-                   .replace( "XX-USERNAME", user.username )
-                   .replace( "XX-PASSWORD", user.password );
+                """;
     }
 
     public static String getCreateBlock() {

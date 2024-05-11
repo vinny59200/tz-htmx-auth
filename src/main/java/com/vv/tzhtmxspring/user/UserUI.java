@@ -13,9 +13,8 @@ public final class UserUI {
                             
                 <head>
                     <title>TZ App</title>
-                    <link rel="stylesheet" href="/css/sakura.css" type="text/css">
-                    <script src="/htmx_1.9.11.js"></script>
-                    <script src="/htmx_debug.js"></script>
+                    <link rel="stylesheet" href="/sakura.css" type="text/css">
+                    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
                      <link rel="icon" type="image/x-icon" href="favicon.ico">
                 </head>
                 <body hx-ext="debug">
@@ -31,6 +30,9 @@ public final class UserUI {
                             </th>
                             <th>
                                 password
+                            </th>
+                            <th>
+                                action
                             </th>
                         </tr>
                         </thead>

@@ -79,9 +79,9 @@ public final class UserUI {
                 </main>
                 </body>
                 
-                <div id="modalContainer" hx-on:"close-modal"="this.innerHTML = null">                            
+                <div id="modalContainer" hx-on:"close-modal"="this.innerHTML = null">
                 </div>
-                                            
+                
                 </html>
                 """;
     }
